@@ -95,6 +95,12 @@ class UserStatementProvider {
 			) );
 			$profile['grants'] = $this->grants;
 
+			if ( class_exists( 'wAvatar' ) ) {
+				global $wgUploadPath;
+				$avatar = new \wAvatar( $this->user->getId(), 'l' );
+				$profile['avatar'] = $wgUploadPath . '/avatars/' . $avatar->getAvatarImage();
+			}
+
 			if ( in_array( 'mwoauth-authonlyprivate', $this->grants ) ||
 				in_array( 'viewmyprivateinfo', MWGrants::getGrantRights( $profile['grants'] ) )
 			) {
