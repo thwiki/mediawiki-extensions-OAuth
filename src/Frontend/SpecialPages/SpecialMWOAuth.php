@@ -488,6 +488,20 @@ class SpecialMWOAuth extends \UnlistedSpecialPage {
 		} else {
 			$params[] = $grantsText;
 		}
+
+		if ( class_exists( 'wAvatar' ) ) {
+			global $wgUploadPath;
+			$avatar = new \wAvatar( $this->getUser()->getId(), 'l' );
+			$form->addHeaderText(
+				\Html::openElement( 'center' ) .
+				$avatar->getAvatarURL( [
+					'style' => 'border-radius: 50%;',
+					'width' => 100,
+					'height' => 100,
+				] ) .
+				\Html::closeElement( 'center' )
+			);
+		}
 		$form->addHeaderText( $this->msg( $msgKey, $params )->parseAsBlock() );
 		$form->addHeaderText( $this->msg( 'mwoauth-form-legal' )->text() );
 
