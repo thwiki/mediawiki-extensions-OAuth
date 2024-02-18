@@ -80,7 +80,7 @@ class UserStatementProvider {
 	 */
 	public function getUserProfile() {
 		$profile = [
-			'sub' => Utils::getCentralIdFromLocalUser( $this->user ),
+			'sub' => (string)Utils::getCentralIdFromLocalUser( $this->user ),
 		];
 		// Include some MediaWiki info about the user
 		if ( !$this->user->isHidden() ) {
@@ -96,9 +96,9 @@ class UserStatementProvider {
 			$profile['grants'] = $this->grants;
 
 			if ( class_exists( 'wAvatar' ) ) {
-				global $wgUploadPath;
+				global $wgAvatarPath;
 				$avatar = new \wAvatar( $this->user->getId(), 'l' );
-				$profile['avatar'] = $wgUploadPath . '/avatars/' . $avatar->getAvatarImage();
+				$profile['avatar'] = $wgAvatarPath . $avatar->getAvatarImage();
 			}
 
 			if ( in_array( 'mwoauth-authonlyprivate', $this->grants ) ||
