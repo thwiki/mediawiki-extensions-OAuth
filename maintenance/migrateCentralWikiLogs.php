@@ -37,12 +37,12 @@ class MigrateCentralWikiLogs extends Maintenance {
 
 	public function execute() {
 		$oldWiki = $this->getOption( 'old' );
-		$targetWiki = WikiMap::getCurrentWikiId();
+		$targetWiki = \MediaWiki\WikiMap\WikiMap::getCurrentWikiId();
 
 		$this->output( "Moving OAuth logs from '$oldWiki' to '$targetWiki'\n" );
 
 		// We only read from $oldDb, but we do want to make sure we get the most recent logs.
-		$lbFactory = MediaWikiServices::getInstance()->getDBLoadBalancerFactory();
+		$lbFactory = \MediaWiki\MediaWikiServices::getInstance()->getDBLoadBalancerFactory();
 		$oldDb = $lbFactory->getMainLB( $oldWiki )->getConnection( DB_PRIMARY, [], $oldWiki );
 		$targetDb = $lbFactory->getMainLB( $targetWiki )
 			->getConnection( DB_PRIMARY, [], $targetWiki );
@@ -59,7 +59,7 @@ class MigrateCentralWikiLogs extends Maintenance {
 			$lastMinTimestamp = $targetMinTS;
 		}
 
-		$commentStore = MediaWikiServices::getInstance()->getCommentStore();
+		$commentStore = \MediaWiki\MediaWikiServices::getInstance()->getCommentStore();
 		$commentQuery = $commentStore->getJoin( 'log_comment' );
 
 		do {
@@ -118,7 +118,7 @@ class MigrateCentralWikiLogs extends Maintenance {
 					);
 					continue;
 				}
-				$logUser = MediaWikiServices::getInstance()->getActorNormalization()
+				$logUser = \MediaWiki\MediaWikiServices::getInstance()->getActorNormalization()
 					->newActorFromRow( $row );
 				$params = LogEntryBase::extractParams( $row->log_params );
 				if ( !isset( $params['4:consumer'] ) ) {
@@ -127,7 +127,7 @@ class MigrateCentralWikiLogs extends Maintenance {
 				}
 				$logEntry = new ManualLogEntry( 'mwoauthconsumer', $row->log_action );
 				$logEntry->setPerformer( $logUser );
-				$logEntry->setTarget( Title::makeTitleSafe( NS_USER, $row->actor_name ) );
+				$logEntry->setTarget( \MediaWiki\Title\Title::makeTitleSafe( NS_USER, $row->actor_name ) );
 				$logEntry->setComment( $commentStore->getComment( 'log_comment', $row )->text );
 				$logEntry->setParameters( $params );
 				$logEntry->setRelations( [

@@ -257,7 +257,7 @@ class SpecialMWOAuth extends UnlistedSpecialPage {
 					/** @var Consumer $consumer */
 					/** @var MWOAuthToken $token */
 
-					$wiki = WikiMap::getCurrentWikiId();
+					$wiki = \MediaWiki\WikiMap\WikiMap::getCurrentWikiId();
 					$dbr = Utils::getOAuthDB( DB_REPLICA );
 					$access = ConsumerAcceptance::newFromToken( $dbr, $token->key );
 					if ( !$access ) {
@@ -497,7 +497,7 @@ class SpecialMWOAuth extends UnlistedSpecialPage {
 			);
 		}
 
-		$existing = $cmrAc->getDAO()->getCurrentAuthorization( $user, WikiMap::getCurrentWikiId() );
+		$existing = $cmrAc->getDAO()->getCurrentAuthorization( $user, \MediaWiki\WikiMap\WikiMap::getCurrentWikiId() );
 
 		// If only authentication was requested, and the existing authorization
 		// matches, and the only grants are 'mwoauth-authonly' or 'mwoauth-authonlyprivate',

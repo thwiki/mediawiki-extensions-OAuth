@@ -9,11 +9,11 @@ use MediaWiki\MediaWikiServices;
 /** @phpcs-require-sorted-array */
 return [
 
-	'OAuthConfig' => static function ( MediaWikiServices $services ): Config {
+	'OAuthConfig' => static function ( \MediaWiki\MediaWikiServices $services ): Config {
 		return $services->getMainConfig();
 	},
 
-	'OAuthWorkflow' => static function ( MediaWikiServices $services ): Workflow {
+	'OAuthWorkflow' => static function ( \MediaWiki\MediaWikiServices $services ): Workflow {
 		$oauthConfig = OAuthServices::wrap( $services )->getConfig();
 		return new Workflow( new ServiceOptions( Workflow::CONSTRUCTOR_OPTIONS, $oauthConfig ) );
 	},

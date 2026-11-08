@@ -103,7 +103,7 @@ class AccessTokenEntityTest extends MediaWikiIntegrationTestCase {
 			$claims = json_decode( base64_decode( explode( '.', $jwt )[1] ), true );
 			return $claims['sub'];
 		};
-		$wikiId = WikiMap::getCurrentWikiId();
+		$wikiId = \MediaWiki\WikiMap\WikiMap::getCurrentWikiId();
 
 		$clientEntity = MockClientEntity::newMock( $this->getTestUser()->getUser() );
 		$this->assertSame( "mw:local:$wikiId:" . $clientEntity->getUserId(), $getSub( $clientEntity ) );

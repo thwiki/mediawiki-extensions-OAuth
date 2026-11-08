@@ -168,7 +168,7 @@ class SessionProvider
 
 		$logData['user'] = Utils::getCentralUserNameFromId( $access->getUserId(), 'raw' );
 
-		$wiki = WikiMap::getCurrentWikiId();
+		$wiki = \MediaWiki\WikiMap\WikiMap::getCurrentWikiId();
 		// Access token is for this wiki
 		if ( $access->getWiki() !== '*' && $access->getWiki() !== $wiki ) {
 			$this->logger->debug( 'OAuth request for wrong wiki from user {user}', $logData );

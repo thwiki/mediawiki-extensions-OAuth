@@ -636,7 +636,7 @@ abstract class Consumer extends MWOAuthDAO {
 
 		$dbw = Utils::getOAuthDB( DB_PRIMARY );
 		// Check if this authorization exists
-		$cmra = $this->getCurrentAuthorization( $mwUser, WikiMap::getCurrentWikiId() );
+		$cmra = $this->getCurrentAuthorization( $mwUser, \MediaWiki\WikiMap\WikiMap::getCurrentWikiId() );
 
 		if ( $update ) {
 			// This should be an update to an existing authorization

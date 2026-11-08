@@ -174,7 +174,7 @@ class AccessTokenEntity implements AccessTokenEntityInterface {
 		}
 		try {
 			$user = Utils::getLocalUserFromCentralId( $userIdentifier );
-			$approval = $clientEntity->getCurrentAuthorization( $user, WikiMap::getCurrentWikiId() );
+			$approval = $clientEntity->getCurrentAuthorization( $user, \MediaWiki\WikiMap\WikiMap::getCurrentWikiId() );
 		} catch ( Throwable ) {
 			return false;
 		}

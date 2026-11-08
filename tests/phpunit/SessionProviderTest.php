@@ -64,7 +64,7 @@ class SessionProviderTest extends MediaWikiIntegrationTestCase {
 
 	public function setUp(): void {
 		$this->overrideConfigValues( [
-			'MWOAuthCentralWiki' => WikiMap::getCurrentWikiId(),
+			'MWOAuthCentralWiki' => \MediaWiki\WikiMap\WikiMap::getCurrentWikiId(),
 			'OAuthAutoApprove' => [ [
 				'grants' => [ 'mwoauth-authonly', 'mwoauth-authonlyprivate', 'basic' ],
 			] ],

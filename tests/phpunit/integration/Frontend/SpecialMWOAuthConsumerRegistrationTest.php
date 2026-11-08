@@ -1,9 +1,10 @@
 <?php
 
 namespace MediaWiki\Extension\OAuth\Tests\Integration\Frontend;
+use StatusValue;
 
 use CentralAuthTestUser;
-use ExtensionRegistry;
+use MediaWiki\Registration\ExtensionRegistry;
 use MediaWiki\Config\SiteConfiguration;
 use MediaWiki\Context\IContextSource;
 use MediaWiki\Context\RequestContext;
@@ -24,8 +25,6 @@ use MediaWiki\User\User;
 use MediaWiki\Utils\MWRestrictions;
 use MediaWiki\WikiMap\WikiMap;
 use MediaWikiIntegrationTestCase;
-use StatusValue;
-
 /**
  * @covers \MediaWiki\Extension\OAuth\Frontend\SpecialPages\SpecialMWOAuthConsumerRegistration
  * @covers \MediaWiki\Extension\OAuth\Control\ConsumerSubmitControl
@@ -37,7 +36,7 @@ class SpecialMWOAuthConsumerRegistrationTest extends MediaWikiIntegrationTestCas
 	protected function setUp(): void {
 		parent::setUp();
 		$this->overrideConfigValues( [
-			'MWOAuthCentralWiki' => WikiMap::getCurrentWikiId(),
+			'MWOAuthCentralWiki' => \MediaWiki\WikiMap\WikiMap::getCurrentWikiId(),
 			'MWOAuthSharedUserSource' => 'local',
 		] );
 
@@ -77,7 +76,7 @@ class SpecialMWOAuthConsumerRegistrationTest extends MediaWikiIntegrationTestCas
 				$user->getName(),
 				'GUCP@ssword',
 				[],
-				[ [ WikiMap::getCurrentWikiId(), 'primary' ] ]
+				[ [ \MediaWiki\WikiMap\WikiMap::getCurrentWikiId(), 'primary' ] ]
 			);
 			$centralUser->save( $this->getDb() );
 		}

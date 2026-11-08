@@ -84,7 +84,7 @@ class SpecialMWOAuthManageConsumers extends SpecialPage {
 
 		if ( !Utils::isCentralWiki() ) {
 			$this->getOutput()->addWikiMsg( 'mwoauth-consumers-central-wiki' );
-			$wiki = WikiMap::getWiki( Utils::getCentralWiki() ?: WikiMap::getCurrentWikiId() );
+			$wiki = \MediaWiki\WikiMap\WikiMap::getWiki( Utils::getCentralWiki() ?: \MediaWiki\WikiMap\WikiMap::getCurrentWikiId() );
 			if ( $wiki ) {
 				$this->getOutput()->addHTML( Html::element( 'a', [
 					// Cross-wiki, so don't localize

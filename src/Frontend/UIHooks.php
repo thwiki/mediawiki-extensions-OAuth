@@ -203,7 +203,7 @@ class UIHooks implements
 			if ( Utils::isCentralWiki() ) {
 				$url = SpecialPage::getTitleFor( 'OAuthConsumerRegistration' )->getFullURL();
 			} else {
-				$url = WikiMap::getForeignURL(
+				$url = \MediaWiki\WikiMap\WikiMap::getForeignURL(
 					$wgMWOAuthCentralWiki,
 					// Cross-wiki, so don't localize
 					'Special:OAuthConsumerRegistration'

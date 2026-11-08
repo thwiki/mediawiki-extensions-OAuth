@@ -418,7 +418,7 @@ class SpecialMWOAuthListConsumers extends SpecialPage {
 		$dbr = Utils::getOAuthDB( DB_REPLICA );
 		$wikiSpecificGrant =
 			ConsumerAcceptance::newFromUserConsumerWiki(
-				$dbr, $centralUserId, $consumer, WikiMap::getCurrentWikiId() );
+				$dbr, $centralUserId, $consumer, \MediaWiki\WikiMap\WikiMap::getCurrentWikiId() );
 
 		$allWikiGrant = ConsumerAcceptance::newFromUserConsumerWiki(
 			$dbr, $centralUserId, $consumer, '*' );

@@ -40,7 +40,7 @@ class MWOA {
 	 * - scopes: app scopes ("grants" in OAuth 1 / MW core terminology)
 	 */
 	public static function decryptAccessToken( string $token ): array {
-		$config = MediaWikiServices::getInstance()->getConfigFactory()->makeConfig( 'mwoauth' );
+		$config = \MediaWiki\MediaWikiServices::getInstance()->getConfigFactory()->makeConfig( 'mwoauth' );
 		$accessTokenRepository = new AccessTokenRepository( $config->get( 'CanonicalServer' ) );
 		$validator = new BearerTokenValidator( $accessTokenRepository );
 		$validator->setPublicKey( new CryptKey( $config->get( 'OAuth2PublicKey' ) ) );
@@ -61,7 +61,7 @@ class MWOA {
 	 * - user_id: user's central ID
 	 */
 	public static function decryptRefreshToken( string $token ): array {
-		$config = MediaWikiServices::getInstance()->getConfigFactory()->makeConfig( 'mwoauth' );
+		$config = \MediaWiki\MediaWikiServices::getInstance()->getConfigFactory()->makeConfig( 'mwoauth' );
 		$oAuthSecretKey = $config->get( 'OAuthSecretKey' );
 		$json = Crypto::decryptWithPassword( $token, $oAuthSecretKey );
 		return json_decode( $json, true );

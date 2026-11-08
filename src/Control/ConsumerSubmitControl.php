@@ -152,7 +152,7 @@ class ConsumerSubmitControl extends SubmitControl {
 						return StatusValue::newFatal(
 							new ApiMessage( 'mwoauth-error-callback-url-must-be-https', 'invalid_callback_url' )
 						);
-					} elseif ( $clientIsConfidential && WikiMap::getWikiFromUrl( $s ) ) {
+					} elseif ( $clientIsConfidential && \MediaWiki\WikiMap\WikiMap::getWikiFromUrl( $s ) ) {
 						// Reduce noise from clueless people using Wikipedia's URL as callback
 						// (except for public clients; it can be valid e.g. for gadgets).
 						return StatusValue::newGood()->warning(
@@ -429,7 +429,7 @@ class ConsumerSubmitControl extends SubmitControl {
 
 				$accessToken = null;
 				if ( $cmr->getOwnerOnly() && $this->vals['resetSecret'] ) {
-					$cmra = $cmr->getCurrentAuthorization( $user, WikiMap::getCurrentWikiId() );
+					$cmra = $cmr->getCurrentAuthorization( $user, \MediaWiki\WikiMap\WikiMap::getCurrentWikiId() );
 					$accessToken = MWOAuthDataStore::newToken();
 					$fields = [
 						'wiki'         => $cmr->getWiki(),

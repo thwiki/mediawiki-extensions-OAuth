@@ -170,7 +170,7 @@ EOK;
 		$db = Utils::getOAuthDB( DB_REPLICA );
 		$conds = [
 			'oarc_id' => $consumerIds,
-			$db->expr( 'oarc_wiki', '=', [ '*', WikiMap::getCurrentWikiId() ] ),
+			$db->expr( 'oarc_wiki', '=', [ '*', \MediaWiki\WikiMap\WikiMap::getCurrentWikiId() ] ),
 			'oarc_deleted' => 0,
 		];
 		if ( $activeOnly ) {
@@ -196,7 +196,7 @@ EOK;
 
 		if ( $wgMWOAuthCentralWiki === false ) {
 			// Treat each wiki as its own "central wiki" as there is no actual one
-			$wgMWOAuthCentralWiki = WikiMap::getCurrentWikiId();
+			$wgMWOAuthCentralWiki = \MediaWiki\WikiMap\WikiMap::getCurrentWikiId();
 		} else {
 			// There is actually a central wiki, requiring global user IDs via hook
 			$wgMWOAuthSharedUserIDs = true;

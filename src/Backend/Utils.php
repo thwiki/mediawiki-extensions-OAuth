@@ -34,7 +34,7 @@ class Utils {
 	 * @return bool
 	 */
 	public static function isCentralWiki() {
-		return ( WikiMap::getCurrentWikiId() === self::getCentralWiki() );
+		return ( \MediaWiki\WikiMap\WikiMap::getCurrentWikiId() === self::getCentralWiki() );
 	}
 
 	/**
@@ -66,8 +66,8 @@ class Utils {
 	 * Get the URL to be used as the issuer ('iss') claim in JWTs.
 	 */
 	public static function getJwtIssuer(): string {
-		$centralWiki = self::getCentralWiki() ?: WikiMap::getCurrentWikiId();
-		$wiki = WikiMap::getWiki( $centralWiki );
+		$centralWiki = self::getCentralWiki() ?: \MediaWiki\WikiMap\WikiMap::getCurrentWikiId();
+		$wiki = \MediaWiki\WikiMap\WikiMap::getWiki( $centralWiki );
 		if ( !$wiki ) {
 			LoggerFactory::getInstance( 'OAuth' )->error( 'WikiMap not configured' );
 			return MediaWikiServices::getInstance()->getUrlUtils()->getCanonicalServer();
@@ -239,7 +239,7 @@ class Utils {
 			return wfMessage( 'mwoauth-consumer-allwikis' )->text();
 		}
 
-		$host = WikiMap::getWikiName( $wikiId );
+		$host = \MediaWiki\WikiMap\WikiMap::getWikiName( $wikiId );
 		if ( strpos( $host, '.' ) ) {
 			// e.g. "en.wikipedia.org"
 			return $host;
@@ -402,7 +402,7 @@ class Utils {
 		global $wgMWOAuthCentralWiki;
 
 		if ( self::usingCentralIds() ) {
-			$url = WikiMap::getForeignURL(
+			$url = \MediaWiki\WikiMap\WikiMap::getForeignURL(
 				$wgMWOAuthCentralWiki,
 				"User_talk:$username"
 			);

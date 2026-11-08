@@ -75,7 +75,7 @@ class SpecialMWOAuthConsumerRegistration extends SpecialPage {
 
 		if ( !Utils::isCentralWiki() ) {
 			$this->getOutput()->addWikiMsg( 'mwoauth-consumers-central-wiki' );
-			$wiki = WikiMap::getWiki( Utils::getCentralWiki() ?: WikiMap::getCurrentWikiId() );
+			$wiki = \MediaWiki\WikiMap\WikiMap::getWiki( Utils::getCentralWiki() ?: \MediaWiki\WikiMap\WikiMap::getCurrentWikiId() );
 			if ( $wiki ) {
 				$this->getOutput()->addHTML( Html::element( 'a', [
 					// Cross-wiki, so don't localize
@@ -520,8 +520,8 @@ class SpecialMWOAuthConsumerRegistration extends SpecialPage {
 				'type' => $allWikis ? 'combobox' : 'select',
 				'options' => [
 					 $this->msg( 'mwoauth-consumer-allwikis' )->escaped() => '*',
-					 $this->msg( 'mwoauth-consumer-wiki-thiswiki', WikiMap::getCurrentWikiId() )
-						 ->escaped() => WikiMap::getCurrentWikiId()
+					 $this->msg( 'mwoauth-consumer-wiki-thiswiki', \MediaWiki\WikiMap\WikiMap::getCurrentWikiId() )
+						 ->escaped() => \MediaWiki\WikiMap\WikiMap::getCurrentWikiId()
 				 ] + array_flip( $allWikis ),
 				'label-message' => 'mwoauth-consumer-wiki',
 				'required' => true,

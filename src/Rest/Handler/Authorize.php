@@ -222,7 +222,7 @@ class Authorize extends AuthenticationHandler {
 		try {
 			$approval = $client->getCurrentAuthorization(
 				$userEntity->getMwUser(),
-				WikiMap::getCurrentWikiId()
+				\MediaWiki\WikiMap\WikiMap::getCurrentWikiId()
 			);
 		} catch ( Exception ) {
 			return false;

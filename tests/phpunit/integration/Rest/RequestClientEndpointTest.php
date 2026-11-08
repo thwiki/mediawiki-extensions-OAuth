@@ -86,7 +86,7 @@ class RequestClientEndpointTest extends EndpointTestBase {
 		parent::setUp();
 
 		$this->overrideConfigValues( [
-			'MWOAuthCentralWiki' => WikiMap::getCurrentWikiId(),
+			'MWOAuthCentralWiki' => \MediaWiki\WikiMap\WikiMap::getCurrentWikiId(),
 			MainConfigNames::GroupPermissions => [
 				'*' => [ 'mwoauthproposeconsumer' => true ]
 			],
